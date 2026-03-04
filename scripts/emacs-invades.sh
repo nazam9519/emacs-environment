@@ -7,6 +7,8 @@ if [ $? -ne 0 ]; then
    echo "nvm"
    exit 1
 fi
+mkdir ~/$ED/.emacs_backups
 cp -r $DIRC/../src/* ~/$ED
 cp -r $DIRC/../src/.config ~/$ED
+echo "source $(pwd)/set-env.sh" >> ~/.bashrc
 echo "copied them all ober"
