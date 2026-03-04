@@ -1,5 +1,3 @@
-src/elpa/
-elpa/
-src/projects/
-projects/
+src/elpa
+src/projects
 .venv/
