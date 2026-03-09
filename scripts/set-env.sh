@@ -15,5 +15,5 @@ function ed {
 }
 function edr {
     echo "OpenCMD: $OPNCMD"
-    "${CMD[@]}" "$@" &
+    "${CMD[@]}" "$@" "." &
 }
