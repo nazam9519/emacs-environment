@@ -8,7 +8,7 @@
         kept-old-versions 1
         version-control t)
   
-  (setq auto-save-file-name-transforms `((".*" "~/.emacs.d/.emacs_backups" t))))
+  (setq auto-save-file-name-transforms `((".*" "~/.emacs.d/.emacs_backups/" t))))
 
 (setq emacs-config-dir user-emacs-directory)
 (add-to-list 'load-path

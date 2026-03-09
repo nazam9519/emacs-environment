@@ -9,7 +9,7 @@
   :config
   (if evil-mode
     (progn
-	(message "turning evil mode off")
+	(message "turning off evil mode")
 	(evil-mode 0))
     (progn
       (message "turning on evil mode")

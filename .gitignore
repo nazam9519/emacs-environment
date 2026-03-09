@@ -1,3 +1,6 @@
 src/elpa
 src/projects
 .venv/
+*#
+auto-save-list
+.emacs_backups/
