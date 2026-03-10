@@ -1,4 +1,5 @@
 src/elpa
+src/elpa*
 src/projects
 .venv/
 *#
