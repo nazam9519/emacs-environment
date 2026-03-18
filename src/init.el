@@ -1,7 +1,7 @@
 (add-to-list 'load-path (concat user-emacs-directory ".config"))
-(add-to-list 'package-archives
-             '("melpa" . "https://melpa.org/packages/")
-             t)
+;(add-to-list 'package-archives
+;             '("melpa" . "https://melpa.org/packages/")
+;             t)
 (add-to-list 'default-frame-alist '(fullscreen . fullboth))
 (setq inhibit-startup-screen t)
 
