@@ -34,3 +34,10 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+(when(getenv "JAVAMACS")
+  (message "setting java mode")
+  (java-time))
+
+(when(getenv "EVILMACS")
+  (release-the-evil)
+  (message "setting vi mode to on"))

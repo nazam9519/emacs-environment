@@ -8,8 +8,8 @@
       
     ;;false
   (message "variable is not null"))
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
-(package-refresh-contents)
+;;(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+;;(package-refresh-contents)
 (use-package sweet-theme :ensure t :init (load-theme 'sweet t))
 (use-package projectile)
 (use-package flycheck)
