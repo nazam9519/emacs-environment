@@ -9,6 +9,8 @@
         version-control t)
   
   (setq auto-save-file-name-transforms `((".*" "~/.emacs.d/.emacs_backups/" t))))
+(defun restore-vanilla-config ()
+  (load "~/.emacs.d/init.el"))
 
 (setq emacs-config-dir user-emacs-directory)
 (add-to-list 'load-path

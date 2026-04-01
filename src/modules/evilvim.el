@@ -1,4 +1,11 @@
 (require 'use-package)
+(require 'set-java)
+(defun comms () 
+(interactive)
+(with-eval-after-load 'evil
+(evil-ex-define-cmd "java-mode" #'java-time)
+(evil-ex-define-cmd "restore-vanilla-emacs" #'restore-vanilla-config)))
+
 (defun release-the-evil ()
   "toggle on and off of evil(vi mode)"
   (interactive)
@@ -13,8 +20,10 @@
 	(evil-mode 0))
     (progn
       (message "turning on evil mode")
-      (evil-mode 1)))))
-;;
+      (evil-mode 1))))
+     (comms)
+   )
+
   
 (defun toggle-line-numbers ()
   "Toggle between absolute and relative line numbers."
@@ -27,10 +36,7 @@
   (global-display-line-numbers-mode 1))
 
 ;;code starts					
-;(setq display-line-numbers-type 'relative)
 (global-display-line-numbers-mode 1)
-;(release-the-evil)
-
 
 
 (provide 'evilvim)
