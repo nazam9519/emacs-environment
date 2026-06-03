@@ -16,7 +16,9 @@
 (require 'set-java)
 (require 'set-keys)  ;set control characters
 (require 'commandhelpers) ;help-commands
-(require 'set-python)
+;;(require 'set-python)
+;;(require 'set-kotlin)
+(require 'set-editor)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -25,8 +27,8 @@
  ;; If there is more than one, they won't work right.
  '(custom-enabled-themes '(deeper-blue))
  '(package-selected-packages
-   '(company dap-mode evil flycheck helm-lsp hydra lsp-java lsp-mode
-	     lsp-treemacs lsp-ui projectile sweet-theme vterm
+   '(company dap-mode evil flycheck helm-lsp hydra kotlin-mode lsp-java
+	     lsp-mode lsp-treemacs lsp-ui projectile sweet-theme vterm
 	     yasnippet)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -34,6 +36,9 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+
+(glob-editor-init-parms)
 (when(getenv "JAVAMACS")
   (message "setting java mode")
   (java-time))
@@ -41,3 +46,12 @@
 (when(getenv "EVILMACS")
   (release-the-evil)
   (message "setting vi mode to on"))
+
+(when(getenv "KOTMACS")
+  (message "setting kotlin mode")
+  (kotlin-time))
+;;(special-glob-editor)
+
+(when (getenv "DEBUG")
+  (message "Starting with debug message window")
+  (debug-emacs-msgs))

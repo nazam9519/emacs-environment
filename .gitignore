@@ -5,3 +5,9 @@ src/projects
 *#
 auto-save-list
 .emacs_backups/
+.cache/
+.lsp*
+.dap*
+eclipse*
+workspace/
+tramp

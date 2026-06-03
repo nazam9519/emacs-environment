@@ -1,3 +1,9 @@
+(defun python-activate-env-emacs ()
+  (unless (package-installed-p 'company)
+    (python-syntaxer-install))
+  (python-syntaxer)
+  (dap-python-enable))
+
 (defun python-syntaxer-install ()
   (interactive)
   (package-install 'company)
@@ -15,13 +21,24 @@
   (setq company-backends '(company-capf))
   (add-hook 'python-mode-hook 'eglot-ensure))
 
-(unless (package-installed-p 'company)
-  (python-syntaxer-install))
-(python-syntaxer)
+(defun dap-python-enable()
+  (interactive)
+  (message "enable dap for a python file")
+  (use-package dap-mode
+    :ensure t
+    :config
+    (dap-auto-configure-mode))
+  (require 'dap-python)
+  (setq dap-python-debugger 'debugpy))
 
-(if (eq major-mode 'python-mode)
-    (message "This is a Python file")
-  (message "Not Python"))
 
-(message "python!")
+(add-hook 'python-mode-hook #'python-activate-env-emacs)
+;;(add-hook 'python-mode-hook 'company-mode)
+;;(if (eq major-mode 'python-mode)
+;;(python-activate-env-emacs))
+;;    (message "This is a Python file")
+;;  (message "Not Python"))
+   
+
+
 (provide 'set-python)
