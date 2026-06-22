@@ -1,4 +1,41 @@
+(defun python-setup ()
+  (interactive)
+
+  (use-package company
+    :ensure t
+    :config
+    (global-company-mode 1)
+    (setq company-minimum-prefix-length 1)
+    (setq company-idle-delay 0.0)
+    (setq company-backends '(company-capf)))
+
+  (use-package eglot
+    :ensure nil)
+
+  (use-package dap-mode
+    :ensure t
+    :config
+    (dap-auto-configure-mode 1))
+
+  (use-package dap-python
+    :ensure nil
+    :after dap-mode
+    :config
+    (setq dap-python-debugger 'debugpy)))
+
 (defun python-activate-env-emacs ()
+  (interactive)
+  (message "Activating Python environment")
+
+  (setq python-shell-interpreter "python3")
+
+  (require 'company)
+  (company-mode 1)
+
+  (require 'eglot)
+  (eglot-ensure)
+
+  (require 'dap-python))(defun python-activate-env-emacs ()
   (unless (package-installed-p 'company)
     (python-syntaxer-install))
   (python-syntaxer)

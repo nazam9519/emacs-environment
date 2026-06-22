@@ -31,8 +31,9 @@
 ;;(use-package lsp-treemacs))
 (defun java-time ()
   (interactive)
-  (message "let's go")
+  (message "go java")
   (require 'lsp-java)
+  (java-activate)
   (lsp))
 
 (add-hook 'java-mode-hook #'java-time)

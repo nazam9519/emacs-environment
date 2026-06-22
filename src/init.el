@@ -16,7 +16,7 @@
 (require 'set-java)
 (require 'set-keys)  ;set control characters
 (require 'commandhelpers) ;help-commands
-;;(require 'set-python)
+(require 'set-python)
 ;;(require 'set-kotlin)
 (require 'set-editor)
 
@@ -38,9 +38,22 @@
  )
 
 
+;;(add-hook
+;; 'window-buffer-change-functions
+ ;;(lambda (_frame)
+  ;; (let ((entry (car (window-prev-buffers))))
+;;     (when entry
+ ;;      (let ((prev-buffer (car entry)))
+;;	 (setq nazam-last-buffer prev-buffer)
+;;	 (when (getenv "DEBUG")
+;;	   (message "%s" prev-buffer))))))
+
+
+
 (glob-editor-init-parms)
 (when(getenv "JAVAMACS")
   (message "setting java mode")
+  (java-activate)
   (java-time))
 
 (when(getenv "EVILMACS")

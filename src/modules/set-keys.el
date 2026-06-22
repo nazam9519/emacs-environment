@@ -1,9 +1,68 @@
 ;;custom-command-list
 ;;python-syntaxer
+(defun helm-override-buffer ()
+  (interactive)
+  (if (bound-and-true-p helm-mode)
+      (global-set-key (kbd "C-x C-b") 'switch-to-buffer)
+    (global-set-key (kbd "C-x C-b") 'list-buffers)
+    ))
+
+(defun my-dired-tab-to-next-name-char ()
+  "Move to first filename char on current line, then next line."
+  (interactive)
+  (let ((start (point)))
+    (dired-move-to-filename)
+    (message "tab start point: %s %s" (point) start)
+    (when (= (point) start)
+      (dired-next-line 1)
+      (dired-move-to-filename)
+          (message "tab start point: %s %s" (point) start))))
+
+(defun dired-tab-behavior ()
+  "Move to first filename char on current line, then next line."
+  (interactive)
+  (let ((filename-start (save-excursion (dired-move-to-filename) (point))))
+    (if (>= (point) filename-start)
+	(progn
+	  (dired-next-line 1)
+	  (dired-move-to-filename))
+      (dired-move-to-filename))))
+
+(defun dired-tab-back ()
+  (interactive)
+  (let ((start (point)))
+    (dired-next-line -1)
+    ;;(dired-move-to-filename)
+    (message "backtab start point: %s %s" (point) start)
+    (dired-move-to-filename)))
+
+(defun buffer-swap-chain ()
+  (interactive)
+  (if (null nazam-last-buffer)
+      (print "no buffers")
+    (switch-to-buffer nazam-last-buffer )))
+  ;;(if (eq nazam-last-buffer #'next-buffer) (setq nazam-last-buffer #'previous-buffer)
+   ;; (setq nazam-last-buffer #'next-buffer)))
+  ;;(if (or (null nazam-last-buffer) (eq nazam-last-buffer #'next-buffer))
+   ;;   (setq nazam-last-buffer #'previous-buffer)
+    ;;(setq nazam-last-buffer #'next-buffer))
+  
+      
+      
+(setq nazam-last-buffer nil)
 (global-set-key (kbd "C-c l") #'toggle-line-numbers)
 (global-set-key (kbd "C-x C-l") #'execute-extended-command)
 (global-set-key (kbd "C-c m ") #'release-the-evil)
-(global-set-key (kbd "C-c e o") (lambda () (interactive) (dired-other-window user-emacs-directory)))
-(global-set-key (kbd "C-c e t") (lambda () (interactive) (dired user-emacs-directory)))
+(global-set-key (kbd "<f9>") #'buffer-swap-chain)
+(global-set-key (kbd "C-c e o") (lambda ()
+				  (interactive)
+				  (dired-other-window user-emacs-directory)))
+(global-set-key (kbd "C-c e t") (lambda ()
+				  (interactive)
+				  (dired user-emacs-directory)))
+
+(with-eval-after-load 'dired
+  (define-key dired-mode-map (kbd "TAB") #'dired-tab-behavior)
+  (define-key dired-mode-map (kbd "<backtab>") #'dired-tab-back))
 
 (provide 'set-keys)

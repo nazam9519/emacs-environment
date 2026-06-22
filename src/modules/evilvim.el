@@ -4,7 +4,10 @@
 (interactive)
 (with-eval-after-load 'evil
 (evil-ex-define-cmd "java-mode" #'java-time)
-(evil-ex-define-cmd "restore-vanilla-emacs" #'restore-vanilla-config)))
+(evil-ex-define-cmd "restore-vanilla-emacs" #'restore-vanilla-config)
+(evil-ex-define-cmd "el[isp]" 'eval-expression)
+(evil-ex-define-cmd "eval" 'eval-expression)
+))
 
 (defun release-the-evil ()
   "toggle on and off of evil(vi mode)"
