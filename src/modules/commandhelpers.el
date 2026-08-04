@@ -1,6 +1,10 @@
+;;; commandhelpers.el --- Small interactive helpers -*- lexical-binding: t; -*-
+
 (defun custom-command-list ()
+  "Open the custom key definitions in another window."
   (interactive)
-  (find-file-other-window "~/.emacs.d/modules/set-keys.el"))
+  (find-file-other-window
+   (expand-file-name "modules/set-keys.el" user-emacs-directory)))
 
 (defun debug-emacs-msgs ()
   (interactive)
@@ -17,3 +21,4 @@
   ;;(pop-to-buffer "*Messages*"))
 
 (provide 'commandhelpers)
+;;; commandhelpers.el ends here

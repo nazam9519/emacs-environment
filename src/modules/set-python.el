@@ -1,81 +1,47 @@
+;;; set-python.el --- Python language support -*- lexical-binding: t; -*-
+
+(use-package eglot
+  :ensure nil
+  :commands eglot-ensure
+  :hook ((python-mode python-ts-mode) . eglot-ensure))
+
+(use-package dap-python
+  :ensure nil
+  :after dap-mode
+  :custom (dap-python-debugger 'debugpy))
+
 (defun python-setup ()
+  "Configure Python completion and debugging packages."
   (interactive)
-
-  (use-package company
-    :ensure t
-    :config
-    (global-company-mode 1)
-    (setq company-minimum-prefix-length 1)
-    (setq company-idle-delay 0.0)
-    (setq company-backends '(company-capf)))
-
-  (use-package eglot
-    :ensure nil)
-
-  (use-package dap-mode
-    :ensure t
-    :config
-    (dap-auto-configure-mode 1))
-
-  (use-package dap-python
-    :ensure nil
-    :after dap-mode
-    :config
-    (setq dap-python-debugger 'debugpy)))
+  (setq python-shell-interpreter "python3")
+  (company-mode 1)
+  (eglot-ensure)
+  (require 'dap-python))
 
 (defun python-activate-env-emacs ()
+  "Activate language-aware completion for the current Python buffer."
   (interactive)
-  (message "Activating Python environment")
-
-  (setq python-shell-interpreter "python3")
-
-  (require 'company)
-  (company-mode 1)
-
-  (require 'eglot)
-  (eglot-ensure)
-
-  (require 'dap-python))(defun python-activate-env-emacs ()
-  (unless (package-installed-p 'company)
-    (python-syntaxer-install))
-  (python-syntaxer)
-  (dap-python-enable))
+  (python-setup))
 
 (defun python-syntaxer-install ()
+  "Install Company and enable it for Python buffers."
   (interactive)
   (package-install 'company)
-
-  (add-hook 'python-mode-hook 'company-mode))
+  (add-hook 'python-mode-hook #'company-mode))
 
 (defun python-syntaxer ()
+  "Enable Python completion using Company and Eglot."
   (interactive)
-  (add-hook 'python-mode-hook 'company-mode)
   (setq python-shell-interpreter "python3")
-  (require 'company)
-  (add-hook 'after-init-hook 'global-company-mode)
-  (setq company-minimum-prefix-length 1)
-  (setq company-idle-delay 0.0)
-  (setq company-backends '(company-capf))
-  (add-hook 'python-mode-hook 'eglot-ensure))
+  (company-mode 1)
+  (eglot-ensure))
 
-(defun dap-python-enable()
+(defun dap-python-enable ()
+  "Load Python DAP support using debugpy."
   (interactive)
-  (message "enable dap for a python file")
-  (use-package dap-mode
-    :ensure t
-    :config
-    (dap-auto-configure-mode))
   (require 'dap-python)
-  (setq dap-python-debugger 'debugpy))
-
-
-(add-hook 'python-mode-hook #'python-activate-env-emacs)
-;;(add-hook 'python-mode-hook 'company-mode)
-;;(if (eq major-mode 'python-mode)
-;;(python-activate-env-emacs))
-;;    (message "This is a Python file")
-;;  (message "Not Python"))
-   
-
+  (setq dap-python-debugger 'debugpy)
+  (message "Python DAP support enabled"))
 
 (provide 'set-python)
+;;; set-python.el ends here

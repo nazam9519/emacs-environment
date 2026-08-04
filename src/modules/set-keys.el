@@ -1,5 +1,7 @@
-;;custom-command-list
-;;python-syntaxer
+;;; set-keys.el --- Custom global and Dired keys -*- lexical-binding: t; -*-
+
+(require 'dired)
+
 (defun helm-override-buffer ()
   (interactive)
   (if (bound-and-true-p helm-mode)
@@ -37,19 +39,12 @@
     (dired-move-to-filename)))
 
 (defun buffer-swap-chain ()
+  "Switch to the most recently used buffer.
+
+The historical command name and F9 binding are retained."
   (interactive)
-  (if (null nazam-last-buffer)
-      (print "no buffers")
-    (switch-to-buffer nazam-last-buffer )))
-  ;;(if (eq nazam-last-buffer #'next-buffer) (setq nazam-last-buffer #'previous-buffer)
-   ;; (setq nazam-last-buffer #'next-buffer)))
-  ;;(if (or (null nazam-last-buffer) (eq nazam-last-buffer #'next-buffer))
-   ;;   (setq nazam-last-buffer #'previous-buffer)
-    ;;(setq nazam-last-buffer #'next-buffer))
-  
-      
-      
-(setq nazam-last-buffer nil)
+  (switch-to-buffer (other-buffer (current-buffer) t)))
+
 (global-set-key (kbd "C-c l") #'toggle-line-numbers)
 (global-set-key (kbd "C-x C-l") #'execute-extended-command)
 (global-set-key (kbd "C-c m ") #'release-the-evil)
@@ -66,3 +61,4 @@
   (define-key dired-mode-map (kbd "<backtab>") #'dired-tab-back))
 
 (provide 'set-keys)
+;;; set-keys.el ends here
