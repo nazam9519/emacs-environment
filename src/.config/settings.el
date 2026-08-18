@@ -10,7 +10,8 @@
           kept-new-versions 3
           kept-old-versions 1
           version-control t
-          auto-save-file-name-transforms `((".*" ,backup-dir t)))))
+          auto-save-file-name-transforms `((".*" ,backup-dir t))
+          lock-file-name-transforms `((".*" ,backup-dir t)))))
 
 (defun restore-vanilla-config ()
   "Reload this Emacs configuration.
@@ -24,5 +25,9 @@ The historical command name is retained for compatibility."
 
 (setup-backups)
 
+;; Keep settings written by Customize separate from the hand-written startup
+;; files.  The file is optional until Customize first saves something.
+(setq custom-file (expand-file-name ".config/custom.el" emacs-config-dir))
+(load custom-file 'noerror)
 (provide 'settings)
 ;;; settings.el ends here

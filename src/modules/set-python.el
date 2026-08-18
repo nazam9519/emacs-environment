@@ -19,22 +19,19 @@
   (require 'dap-python))
 
 (defun python-activate-env-emacs ()
-  "Activate language-aware completion for the current Python buffer."
+  "Compatibility alias for `python-setup'."
   (interactive)
   (python-setup))
 
 (defun python-syntaxer-install ()
-  "Install Company and enable it for Python buffers."
+  "Compatibility entry point for `python-setup'."
   (interactive)
-  (package-install 'company)
-  (add-hook 'python-mode-hook #'company-mode))
+  (python-setup))
 
 (defun python-syntaxer ()
-  "Enable Python completion using Company and Eglot."
+  "Compatibility entry point for `python-setup'."
   (interactive)
-  (setq python-shell-interpreter "python3")
-  (company-mode 1)
-  (eglot-ensure))
+  (python-setup))
 
 (defun dap-python-enable ()
   "Load Python DAP support using debugpy."

@@ -11,3 +11,5 @@ auto-save-list
 eclipse*
 workspace/
 tramp
+projectile-*
+*.eld

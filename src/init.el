@@ -11,9 +11,9 @@
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
 
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
+;; `use-package' is bundled with Emacs 29 and newer.  Package installation is
+;; still handled by individual declarations, but startup no longer refreshes
+;; the archive merely to bootstrap the configuration machinery.
 (require 'use-package)
 (setq use-package-always-ensure t)
 
@@ -26,29 +26,11 @@
 (require 'set-keys)
 (require 'commandhelpers)
 
-(custom-set-variables
- '(package-selected-packages
-   '(company dap-mode evil flycheck helm-lsp hydra kotlin-mode lsp-java
-             lsp-mode lsp-treemacs lsp-ui projectile sweet-theme vterm
-             yasnippet)))
-(custom-set-faces)
-
 (glob-editor-init-parms)
 
-;; Evil is the default editing style. `release-the-evil' remains available as
-;; an interactive toggle after startup.
-(release-the-evil)
-
-;; These environment switches are retained for compatibility with existing
-;; launch scripts. Language support is also selected automatically per buffer.
-(when (getenv "JAVAMACS")
-  (message "Java support is enabled"))
-
-(when (getenv "EVILMACS")
-  (message "EVILMACS detected; Vi mode is already enabled by default"))
-
-(when (getenv "KOTMACS")
-  (message "Kotlin support is enabled"))
+;; Evil is the default editing style. `release-the-evil' remains an interactive
+;; toggle, while reloading this file always leaves Evil enabled.
+(enable-evil)
 
 (when (getenv "DEBUG")
   (message "Starting with debug message window")

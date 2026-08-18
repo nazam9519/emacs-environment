@@ -9,17 +9,6 @@
     (global-set-key (kbd "C-x C-b") 'list-buffers)
     ))
 
-(defun my-dired-tab-to-next-name-char ()
-  "Move to first filename char on current line, then next line."
-  (interactive)
-  (let ((start (point)))
-    (dired-move-to-filename)
-    (message "tab start point: %s %s" (point) start)
-    (when (= (point) start)
-      (dired-next-line 1)
-      (dired-move-to-filename)
-          (message "tab start point: %s %s" (point) start))))
-
 (defun dired-tab-behavior ()
   "Move to first filename char on current line, then next line."
   (interactive)
@@ -31,12 +20,10 @@
       (dired-move-to-filename))))
 
 (defun dired-tab-back ()
+  "Move to the filename on the preceding Dired line."
   (interactive)
-  (let ((start (point)))
-    (dired-next-line -1)
-    ;;(dired-move-to-filename)
-    (message "backtab start point: %s %s" (point) start)
-    (dired-move-to-filename)))
+  (dired-next-line -1)
+  (dired-move-to-filename))
 
 (defun buffer-swap-chain ()
   "Switch to the most recently used buffer.
@@ -44,7 +31,7 @@
 The historical command name and F9 binding are retained."
   (interactive)
   (switch-to-buffer (other-buffer (current-buffer) t)))
-
+(global-set-key (kbd "M-n") #'forward-to-word)
 (global-set-key (kbd "C-c l") #'toggle-line-numbers)
 (global-set-key (kbd "C-x C-l") #'execute-extended-command)
 (global-set-key (kbd "C-c m ") #'release-the-evil)

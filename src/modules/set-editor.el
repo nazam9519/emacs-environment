@@ -20,14 +20,16 @@
   (use-package projectile
     :config (projectile-mode 1))
   (use-package flycheck
-    :hook (prog-mode . flycheck-mode))
+    ;; Eglot uses Flymake.  Restrict Flycheck to lsp-mode buffers so Eglot
+    ;; languages do not run two diagnostic systems at once.
+    :hook (lsp-mode . flycheck-mode))
   (use-package yasnippet
     :config (yas-global-mode 1))
   (use-package company
     :hook (prog-mode . company-mode)
     :custom
     (company-minimum-prefix-length 1)
-    (company-idle-delay 0.0)
+    (company-idle-delay 0.15)
     (company-backends '(company-capf)))
   ;; Eglot contributes language-specific completion through CAPF. Emacs Lisp
   ;; already has a native CAPF, so it needs no external language server.
@@ -45,7 +47,9 @@
   (use-package hydra)
   (use-package dap-mode
     :after lsp-mode
-    :config (dap-auto-configure-mode 1)))
+    :config (dap-auto-configure-mode 1))
+  (use-package vterm
+    :commands vterm))
 
 (provide 'set-editor)
 ;;; set-editor.el ends here

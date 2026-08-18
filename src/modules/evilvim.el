@@ -9,16 +9,23 @@
     (evil-ex-define-cmd "el[isp]" #'eval-expression)
     (evil-ex-define-cmd "eval" #'eval-expression)))
 
+(use-package evil
+  :init
+  (setq evil-want-C-u-scroll t
+        evil-want-C-i-jump nil)
+  :config
+  (comms))
+
+(defun enable-evil ()
+  "Enable Evil globally without toggling its current state."
+  (interactive)
+  (evil-mode 1)
+  (message "Evil mode enabled"))
+
 (defun release-the-evil ()
   "Toggle Evil (Vim emulation) globally."
   (interactive)
-  (use-package evil
-    :init
-    (setq evil-want-C-u-scroll t
-          evil-want-C-i-jump nil)
-    :config
-    (evil-mode (if evil-mode -1 1)))
-  (comms)
+  (evil-mode (if evil-mode -1 1))
   (message "Evil mode %s" (if evil-mode "enabled" "disabled")))
 
 (defun toggle-line-numbers ()
